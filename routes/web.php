@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\WhyUsController;
 use App\Http\Controllers\Admin\SettingsController;
 
+use App\Http\Controllers\Admin\NavController;
+
 // ── Public ──────────────────────────────────────────────
 Route::get('/',         [LandingController::class, 'index'])->name('home');
 Route::post('/contact', [LandingController::class, 'contact'])->name('contact');
@@ -50,6 +52,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post  ('whyus',          [WhyUsController::class, 'store'])->name('whyus.store');
         Route::put   ('whyus/{whyus}',  [WhyUsController::class, 'update'])->name('whyus.update');
         Route::delete('whyus/{whyus}',  [WhyUsController::class, 'destroy'])->name('whyus.destroy');
+
+        // Nav / Header
+        Route::get   ('nav',            [NavController::class, 'index'])->name('nav.index');
+        Route::post  ('nav',            [NavController::class, 'store'])->name('nav.store');
+        Route::put   ('nav/{nav}',      [NavController::class, 'update'])->name('nav.update');
+        Route::delete('nav/{nav}',      [NavController::class, 'destroy'])->name('nav.destroy');
+        Route::post  ('nav/header',     [NavController::class, 'saveHeader'])->name('nav.header');
 
         // Settings
         Route::get ('settings',         [SettingsController::class, 'index'])->name('settings.index');

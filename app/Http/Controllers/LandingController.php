@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\NavItem;
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 
 class LandingController extends Controller
 {
     public function index()
     {
-        return view('landing');
+        $settings = SiteSetting::pluck('value', 'key');
+        $navItems = NavItem::where('active', true)->orderBy('sort_order')->get();
+        return view('landing', compact('settings', 'navItems'));
     }
 
     public function contact(Request $request)
@@ -22,7 +26,6 @@ class LandingController extends Controller
             'message' => 'required|string|max:1000',
         ]);
 
-        // TODO: send mail / store in DB
         Contact::create($request->only('name','email','phone','service','message'));
         return back()->with('success', 'Thank you! We will get back to you shortly.');
     }

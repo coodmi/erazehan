@@ -74,27 +74,33 @@
 <!-- ─── NAVBAR ─────────────────────────────────────────────────────────── -->
 <header class="fixed inset-x-0 top-0 z-50 bg-white/90 backdrop-blur shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+
+        <!-- Logo -->
         <a href="#" class="flex items-center gap-2 font-bold text-xl text-brand">
-            <svg class="w-7 h-7 text-gold" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93V18c0-.55.45-1 1-1s1 .45 1 1v1.93A8.01 8.01 0 0 1 4.07 13H6c.55 0 1 .45 1 1s-.45 1-1 1H4.07A8.01 8.01 0 0 1 11 19.93zM4.07 11H6c.55 0 1-.45 1-1s-.45-1-1-1H4.07A8.01 8.01 0 0 1 11 4.07V6c0 .55.45 1 1 1s1-.45 1-1V4.07A8.01 8.01 0 0 1 19.93 11H18c-.55 0-1 .45-1 1s.45 1 1 1h1.93A8.01 8.01 0 0 1 13 19.93V18c0-.55-.45-1-1-1s-1 .45-1 1v1.93A8.01 8.01 0 0 1 4.07 13H6"/>
-            </svg>
-            GlobalVisa
+            @if(!empty($settings['logo_url']))
+                <img src="{{ $settings['logo_url'] }}" alt="{{ $settings['logo_text'] ?? 'Logo' }}" class="h-8 w-auto"/>
+            @else
+                <svg class="w-7 h-7 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93V18c0-.55.45-1 1-1s1 .45 1 1v1.93A8.01 8.01 0 0 1 4.07 13H6c.55 0 1 .45 1 1s-.45 1-1 1H4.07A8.01 8.01 0 0 1 11 19.93zM4.07 11H6c.55 0 1-.45 1-1s-.45-1-1-1H4.07A8.01 8.01 0 0 1 11 4.07V6c0 .55.45 1 1 1s1-.45 1-1V4.07A8.01 8.01 0 0 1 19.93 11H18c-.55 0-1 .45-1 1s.45 1 1 1h1.93A8.01 8.01 0 0 1 13 19.93V18c0-.55-.45-1-1-1s-1 .45-1 1v1.93A8.01 8.01 0 0 1 4.07 13H6"/>
+                </svg>
+                {{ $settings['logo_text'] ?? 'GlobalVisa' }}
+            @endif
         </a>
 
+        <!-- Desktop nav -->
         <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
-            <a href="#services" class="hover:text-brand transition">Services</a>
-            <a href="#process"  class="hover:text-brand transition">Process</a>
-            <a href="#why-us"   class="hover:text-brand transition">Why Us</a>
-            <a href="#testimonials" class="hover:text-brand transition">Testimonials</a>
-            <a href="#contact"  class="hover:text-brand transition">Contact</a>
+            @foreach($navItems as $item)
+            <a href="{{ $item->url }}" class="hover:text-brand transition">{{ $item->label }}</a>
+            @endforeach
         </nav>
 
-        <a href="#contact"
+        <!-- CTA -->
+        <a href="{{ $settings['nav_cta_link'] ?? '#contact' }}"
            class="hidden md:inline-flex items-center gap-2 bg-brand text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-brand-dark transition">
-            Free Consultation
+            {{ $settings['nav_cta_text'] ?? 'Free Consultation' }}
         </a>
 
-        <!-- Mobile menu toggle -->
+        <!-- Mobile toggle -->
         <button id="menuBtn" class="md:hidden p-2 rounded text-gray-600 hover:text-brand">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
@@ -104,14 +110,13 @@
 
     <!-- Mobile nav -->
     <div id="mobileMenu" class="hidden md:hidden bg-white border-t px-4 pb-4 space-y-2 text-sm font-medium text-gray-700">
-        <a href="#services"     class="block py-2 hover:text-brand">Services</a>
-        <a href="#process"      class="block py-2 hover:text-brand">Process</a>
-        <a href="#why-us"       class="block py-2 hover:text-brand">Why Us</a>
-        <a href="#testimonials" class="block py-2 hover:text-brand">Testimonials</a>
-        <a href="#contact"      class="block py-2 hover:text-brand">Contact</a>
-        <a href="#contact" class="block mt-2 bg-brand text-white text-center py-2 rounded-full">Free Consultation</a>
-    </div>
-</header>
+        @foreach($navItems as $item)
+        <a href="{{ $item->url }}" class="block py-2 hover:text-brand">{{ $item->label }}</a>
+        @endforeach
+        <a href="{{ $settings['nav_cta_link'] ?? '#contact' }}"
+           class="block mt-2 bg-brand text-white text-center py-2 rounded-full">
+            {{ $settings['nav_cta_text'] ?? 'Free Consultation' }}
+        </a>
 
 <!-- ─── HERO SLIDER ───────────────────────────────────────────────────── -->
 <section id="hero-slider" class="relative text-white">
