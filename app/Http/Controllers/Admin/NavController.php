@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\NavItem;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class NavController extends Controller
 {
@@ -50,8 +51,13 @@ class NavController extends Controller
         SiteSetting::updateOrCreate(['key'=>'nav_cta_link'], ['value'=>$request->nav_cta_link]);
 
         if ($request->hasFile('logo_image')) {
-            $path = $request->file('logo_image')->store('logo', 'public');
-            SiteSetting::updateOrCreate(['key'=>'logo_url'], ['value'=>$path]);
+            $file      = $request->file('logo_image');
+            $filename  = 'logo_' . time() . '.' . $file->getClientOriginalExtension();
+            // Copy directly into the domain web root uploads folder
+            $uploadDir = base_path('../../erazehan.com/uploads');
+            File::ensureDirectoryExists($uploadDir);
+            $file->move($uploadDir, $filename);
+            SiteSetting::updateOrCreate(['key'=>'logo_url'], ['value'=>'/uploads/' . $filename]);
         }
 
         return back()->with('success','Header settings saved.');

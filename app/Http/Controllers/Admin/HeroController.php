@@ -5,9 +5,19 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\HeroSlide;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class HeroController extends Controller
 {
+    private function uploadImage($file, $prefix = 'slide'): string
+    {
+        $filename  = $prefix . '_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $uploadDir = base_path('../../erazehan.com/uploads');
+        File::ensureDirectoryExists($uploadDir);
+        $file->move($uploadDir, $filename);
+        return '/uploads/' . $filename;
+    }
+
     public function index() { return view('admin.hero.index', ['slides' => HeroSlide::orderBy('sort_order')->get()]); }
 
     public function create() { return view('admin.hero.form', ['slide' => new HeroSlide]); }
@@ -24,12 +34,9 @@ class HeroController extends Controller
             'btn2_text'  => 'required|string|max:100',
             'btn2_link'  => 'required|string|max:200',
             'sort_order' => 'integer',
-            'active'     => 'boolean',
         ]);
-        if ($request->hasFile('image')) {
-            $data['image_url'] = $request->file('image')->store('slides', 'public');
-        }
-        $data['active'] = $request->boolean('active');
+        $data['image_url'] = $this->uploadImage($request->file('image'));
+        $data['active']    = $request->boolean('active');
         unset($data['image']);
         HeroSlide::create($data);
         return redirect()->route('admin.hero.index')->with('success', 'Slide created.');
@@ -49,10 +56,9 @@ class HeroController extends Controller
             'btn2_text'  => 'required|string|max:100',
             'btn2_link'  => 'required|string|max:200',
             'sort_order' => 'integer',
-            'active'     => 'boolean',
         ]);
         if ($request->hasFile('image')) {
-            $data['image_url'] = $request->file('image')->store('slides', 'public');
+            $data['image_url'] = $this->uploadImage($request->file('image'));
         }
         $data['active'] = $request->boolean('active');
         unset($data['image']);

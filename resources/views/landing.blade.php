@@ -78,7 +78,7 @@
         <!-- Logo -->
         <a href="#" class="flex items-center gap-2 font-bold text-xl text-brand">
             @if(!empty($settings['logo_url']))
-                <img src="{{ asset('storage/' . $settings['logo_url']) }}" alt="{{ $settings['logo_text'] ?? 'Logo' }}" class="h-9 w-auto object-contain"/>
+                <img src="{{ $settings['logo_url'] }}" alt="{{ $settings['logo_text'] ?? 'Logo' }}" class="h-9 w-auto object-contain"/>
             @else
                 <svg class="w-7 h-7 text-gold" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93V18c0-.55.45-1 1-1s1 .45 1 1v1.93A8.01 8.01 0 0 1 4.07 13H6c.55 0 1 .45 1 1s-.45 1-1 1H4.07A8.01 8.01 0 0 1 11 19.93zM4.07 11H6c.55 0 1-.45 1-1s-.45-1-1-1H4.07A8.01 8.01 0 0 1 11 4.07V6c0 .55.45 1 1 1s1-.45 1-1V4.07A8.01 8.01 0 0 1 19.93 11H18c-.55 0-1 .45-1 1s.45 1 1 1h1.93A8.01 8.01 0 0 1 13 19.93V18c0-.55-.45-1-1-1s-1 .45-1 1v1.93A8.01 8.01 0 0 1 4.07 13H6"/>
@@ -125,7 +125,7 @@
 
     @foreach($heroSlides as $i => $slide)
     <div class="slide {{ $i === 0 ? 'active' : '' }}" data-index="{{ $i }}"
-         style="background-image: url('{{ Str::startsWith($slide->image_url, 'http') ? $slide->image_url : asset('storage/' . $slide->image_url) }}');">
+         style="background-image: url('{{ Str::startsWith($slide->image_url, '/') || Str::startsWith($slide->image_url, 'http') ? $slide->image_url : asset('storage/' . $slide->image_url) }}');">
         <div class="slide-overlay"></div>
         <div class="absolute inset-0 flex items-center z-10">
             <div class="max-w-7xl mx-auto w-full px-8 sm:px-14 lg:px-20">
