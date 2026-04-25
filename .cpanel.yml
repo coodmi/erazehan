@@ -3,9 +3,11 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/khanplac/public_html/erazehan
     - /bin/cp -R . $DEPLOYPATH
+    - /bin/cp $DEPLOYPATH/.env.production $DEPLOYPATH/.env
     - cd $DEPLOYPATH && composer install --no-dev --optimize-autoloader
     - cd $DEPLOYPATH && php artisan key:generate --force
     - cd $DEPLOYPATH && php artisan migrate --force
     - cd $DEPLOYPATH && php artisan config:cache
     - cd $DEPLOYPATH && php artisan route:cache
     - cd $DEPLOYPATH && php artisan view:cache
+    - cd $DEPLOYPATH && php artisan storage:link
