@@ -11,9 +11,10 @@ class LandingController extends Controller
 {
     public function index()
     {
-        $settings = SiteSetting::pluck('value', 'key');
-        $navItems = NavItem::where('active', true)->orderBy('sort_order')->get();
-        return view('landing', compact('settings', 'navItems'));
+        $settings   = SiteSetting::pluck('value', 'key');
+        $navItems   = NavItem::where('active', true)->orderBy('sort_order')->get();
+        $heroSlides = \App\Models\HeroSlide::where('active', true)->orderBy('sort_order')->get();
+        return view('landing', compact('settings', 'navItems', 'heroSlides'));
     }
 
     public function contact(Request $request)

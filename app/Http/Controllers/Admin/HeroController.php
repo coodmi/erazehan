@@ -26,7 +26,9 @@ class HeroController extends Controller
             'sort_order' => 'integer',
             'active'     => 'boolean',
         ]);
-        $data['image_url'] = '/storage/' . $request->file('image')->store('slides', 'public');
+        if ($request->hasFile('image')) {
+            $data['image_url'] = $request->file('image')->store('slides', 'public');
+        }
         $data['active'] = $request->boolean('active');
         unset($data['image']);
         HeroSlide::create($data);
@@ -50,7 +52,7 @@ class HeroController extends Controller
             'active'     => 'boolean',
         ]);
         if ($request->hasFile('image')) {
-            $data['image_url'] = '/storage/' . $request->file('image')->store('slides', 'public');
+            $data['image_url'] = $request->file('image')->store('slides', 'public');
         }
         $data['active'] = $request->boolean('active');
         unset($data['image']);

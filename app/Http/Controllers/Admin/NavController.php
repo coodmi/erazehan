@@ -50,7 +50,7 @@ class NavController extends Controller
         SiteSetting::updateOrCreate(['key'=>'nav_cta_link'], ['value'=>$request->nav_cta_link]);
 
         if ($request->hasFile('logo_image')) {
-            $path = '/storage/' . $request->file('logo_image')->store('logo', 'public');
+            $path = $request->file('logo_image')->store('logo', 'public');
             SiteSetting::updateOrCreate(['key'=>'logo_url'], ['value'=>$path]);
         }
 
