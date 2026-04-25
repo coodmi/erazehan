@@ -53,8 +53,7 @@ class NavController extends Controller
         if ($request->hasFile('logo_image')) {
             $file      = $request->file('logo_image');
             $filename  = 'logo_' . time() . '.' . $file->getClientOriginalExtension();
-            // Copy directly into the domain web root uploads folder
-            $uploadDir = base_path('../../erazehan.com/uploads');
+            $uploadDir = '/home/khanplac/erazehan.com/uploads';
             File::ensureDirectoryExists($uploadDir);
             $file->move($uploadDir, $filename);
             SiteSetting::updateOrCreate(['key'=>'logo_url'], ['value'=>'/uploads/' . $filename]);

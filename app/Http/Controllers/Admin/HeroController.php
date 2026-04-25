@@ -12,7 +12,7 @@ class HeroController extends Controller
     private function uploadImage($file, $prefix = 'slide'): string
     {
         $filename  = $prefix . '_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-        $uploadDir = base_path('../../erazehan.com/uploads');
+        $uploadDir = '/home/khanplac/erazehan.com/uploads';
         File::ensureDirectoryExists($uploadDir);
         $file->move($uploadDir, $filename);
         return '/uploads/' . $filename;
