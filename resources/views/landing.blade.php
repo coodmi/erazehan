@@ -330,21 +330,21 @@
                     <div class="w-10 h-10 rounded-full bg-brand-light flex items-center justify-center text-brand font-bold">📍</div>
                     <div>
                         <div class="font-semibold">Office</div>
-                        <div class="text-gray-500">{{ $settings['address'] ?? 'House B-158, Flat 3, Road-22, Mohakhali DoHS' }}</div>
+                        <div class="text-gray-500">{{ $settings['address'] ?? '#337, Flat 3-A, Rd-23, Mohakhali DOHS, Dhaka-1206' }}</div>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
                     <div class="w-10 h-10 rounded-full bg-brand-light flex items-center justify-center text-brand font-bold">📞</div>
                     <div>
                         <div class="font-semibold">Phone</div>
-                        <div class="text-gray-500">+1 (800) 555-VISA</div>
+                        <div class="text-gray-500">+880 1604421474 / +880 1972686069</div>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
                     <div class="w-10 h-10 rounded-full bg-brand-light flex items-center justify-center text-brand font-bold">✉️</div>
                     <div>
                         <div class="font-semibold">Email</div>
-                        <div class="text-gray-500">info@globalvisa.com</div>
+                        <div class="text-gray-500">erazehanintl@gmail.com / contact@erazehanintl.com</div>
                     </div>
                 </div>
             </div>
