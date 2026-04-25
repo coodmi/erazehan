@@ -130,20 +130,31 @@
         <div class="absolute inset-0 flex items-center z-10">
             <div class="max-w-7xl mx-auto w-full px-8 sm:px-14 lg:px-20">
                 <div class="max-w-lg">
+                    @if($slide->title || $slide->highlight)
                     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-3">
-                        {{ $slide->title }} <span class="text-orange-400">{{ $slide->highlight }}</span>
+                        {{ $slide->title }}
+                        @if($slide->highlight)<span class="text-orange-400">{{ $slide->highlight }}</span>@endif
                     </h1>
+                    @endif
+                    @if($slide->subtitle)
                     <p class="text-white/80 text-base mb-7">{{ $slide->subtitle }}</p>
+                    @endif
+                    @if($slide->btn1_text || $slide->btn2_text)
                     <div class="flex flex-wrap gap-4 items-center">
-                        <a href="{{ $slide->btn1_link }}"
+                        @if($slide->btn1_text)
+                        <a href="{{ $slide->btn1_link ?? '#' }}"
                            class="bg-orange-500 hover:bg-orange-400 text-white font-semibold px-6 py-2.5 rounded-full transition text-sm">
                             {{ $slide->btn1_text }}
                         </a>
-                        <a href="{{ $slide->btn2_link }}"
+                        @endif
+                        @if($slide->btn2_text)
+                        <a href="{{ $slide->btn2_link ?? '#' }}"
                            class="text-white/90 hover:text-white font-medium text-sm transition underline-offset-4 hover:underline">
                             {{ $slide->btn2_text }}
                         </a>
+                        @endif
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

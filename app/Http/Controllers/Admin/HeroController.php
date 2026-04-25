@@ -26,13 +26,13 @@ class HeroController extends Controller
     {
         $data = $request->validate([
             'image'      => 'required|image|max:4096',
-            'title'      => 'required|string|max:200',
-            'highlight'  => 'required|string|max:200',
-            'subtitle'   => 'required|string',
-            'btn1_text'  => 'required|string|max:100',
-            'btn1_link'  => 'required|string|max:200',
-            'btn2_text'  => 'required|string|max:100',
-            'btn2_link'  => 'required|string|max:200',
+            'title'      => 'nullable|string|max:200',
+            'highlight'  => 'nullable|string|max:200',
+            'subtitle'   => 'nullable|string',
+            'btn1_text'  => 'nullable|string|max:100',
+            'btn1_link'  => 'nullable|string|max:200',
+            'btn2_text'  => 'nullable|string|max:100',
+            'btn2_link'  => 'nullable|string|max:200',
             'sort_order' => 'integer',
         ]);
         $data['image_url'] = $this->uploadImage($request->file('image'));
@@ -48,13 +48,13 @@ class HeroController extends Controller
     {
         $data = $request->validate([
             'image'      => 'nullable|image|max:4096',
-            'title'      => 'required|string|max:200',
-            'highlight'  => 'required|string|max:200',
-            'subtitle'   => 'required|string',
-            'btn1_text'  => 'required|string|max:100',
-            'btn1_link'  => 'required|string|max:200',
-            'btn2_text'  => 'required|string|max:100',
-            'btn2_link'  => 'required|string|max:200',
+            'title'      => 'nullable|string|max:200',
+            'highlight'  => 'nullable|string|max:200',
+            'subtitle'   => 'nullable|string',
+            'btn1_text'  => 'nullable|string|max:100',
+            'btn1_link'  => 'nullable|string|max:200',
+            'btn2_text'  => 'nullable|string|max:100',
+            'btn2_link'  => 'nullable|string|max:200',
             'sort_order' => 'integer',
         ]);
         if ($request->hasFile('image')) {
