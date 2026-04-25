@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <title>Erazehan International – Your Trusted Immigration Partner</title>
     <meta name="description" content="Expert visa and immigration consultancy services. Student, work, tourist, and PR visas handled by certified professionals." />
 
@@ -104,18 +107,19 @@
 <body class="font-sans text-gray-800 antialiased">
 
 <!-- ─── NAVBAR ─────────────────────────────────────────────────────────── -->
-<header class="fixed inset-x-0 top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+<header class="fixed inset-x-0 top-0 z-50 bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
 
-        <!-- Logo -->
-        <a href="#" class="flex items-center gap-2 font-bold text-lg sm:text-xl text-brand relative z-50">
+        <!-- Logo - Left Side -->
+        <a href="#" class="flex items-center gap-2 font-bold text-base sm:text-lg text-brand relative z-50 flex-shrink-0">
             @if(!empty($settings['logo_url']))
-                <img src="{{ $settings['logo_url'] }}" alt="{{ $settings['logo_text'] ?? 'Logo' }}" class="h-8 sm:h-9 w-auto object-contain"/>
+                <img src="{{ $settings['logo_url'] }}" alt="{{ $settings['logo_text'] ?? 'Logo' }}" class="h-10 sm:h-12 w-auto object-contain"/>
             @else
-                <svg class="w-6 h-6 sm:w-7 sm:h-7 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="w-8 h-8 text-gold" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93V18c0-.55.45-1 1-1s1 .45 1 1v1.93A8.01 8.01 0 0 1 4.07 13H6c.55 0 1 .45 1 1s-.45 1-1 1H4.07A8.01 8.01 0 0 1 11 19.93zM4.07 11H6c.55 0 1-.45 1-1s-.45-1-1-1H4.07A8.01 8.01 0 0 1 11 4.07V6c0 .55.45 1 1 1s1-.45 1-1V4.07A8.01 8.01 0 0 1 19.93 11H18c-.55 0-1 .45-1 1s.45 1 1 1h1.93A8.01 8.01 0 0 1 13 19.93V18c0-.55-.45-1-1-1s-1 .45-1 1v1.93A8.01 8.01 0 0 1 4.07 13H6"/>
                 </svg>
-                <span class="hidden xs:inline">{{ $settings['logo_text'] ?? 'Erazehan International' }}</span>
+                <span class="text-sm sm:text-base">{{ $settings['logo_text'] ?? 'Erazehan International' }}</span>
             @endif
         </a>
 
@@ -132,15 +136,16 @@
             {{ $settings['nav_cta_text'] ?? 'Free Consultation' }}
         </a>
 
-        <!-- Mobile toggle -->
-        <button id="menuBtn" class="md:hidden p-2 rounded-lg text-gray-600 hover:text-brand hover:bg-gray-100 transition-all duration-200 relative z-50">
+        <!-- Mobile Menu Button - Right Side -->
+        <button id="menuBtn" class="md:hidden p-2.5 rounded-lg text-gray-700 hover:text-brand hover:bg-gray-100 transition-all duration-200 relative z-50 flex-shrink-0 border border-gray-300">
             <svg id="menuIcon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
             <svg id="closeIcon" class="w-6 h-6 hidden transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
             </svg>
         </button>
+        </div>
     </div>
 
     <!-- Mobile nav - Modern slide-in menu -->
