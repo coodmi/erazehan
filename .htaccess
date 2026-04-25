@@ -1,0 +1,17 @@
+Options -MultiViews -Indexes
+
+RewriteEngine On
+
+# Handle Authorization Header
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# Serve existing files/dirs directly from public
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -d
+RewriteRule ^ /public%{REQUEST_URI} [L]
+
+# Route everything else through public/index.php
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^ /public/index.php [L]
