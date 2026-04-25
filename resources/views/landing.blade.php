@@ -491,6 +491,25 @@
                 @endif
                 @endforeach
             </div>
+
+            <!-- We Operate In -->
+            <div class="mt-5">
+                <div class="text-gray-800 font-semibold mb-3 text-sm">We Operate In</div>
+                <div class="flex flex-wrap gap-2">
+                    @foreach([
+                        ['🇩🇪','Germany'],['🇫🇷','France'],['🇮🇹','Italy'],['🇪🇸','Spain'],
+                        ['🇵🇹','Portugal'],['🇳🇱','Netherlands'],['🇧🇪','Belgium'],['🇦🇹','Austria'],
+                        ['🇵🇱','Poland'],['🇷🇴','Romania'],['🇨🇿','Czech Rep.'],['🇭🇺','Hungary'],
+                        ['🇸🇪','Sweden'],['🇳🇴','Norway'],['🇩🇰','Denmark'],['🇫🇮','Finland'],
+                        ['🇨🇭','Switzerland'],['🇬🇷','Greece'],['🇭🇷','Croatia'],['🇸🇰','Slovakia'],
+                    ] as [$flag, $country])
+                    <div class="flex items-center gap-1.5 bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-default" title="{{ $country }}">
+                        <span class="text-lg leading-none">{{ $flag }}</span>
+                        <span class="text-xs text-gray-600 font-medium">{{ $country }}</span>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
 
