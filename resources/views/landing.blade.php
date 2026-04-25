@@ -72,51 +72,69 @@
 <body class="font-sans text-gray-800 antialiased">
 
 <!-- ─── NAVBAR ─────────────────────────────────────────────────────────── -->
-<header class="fixed inset-x-0 top-0 z-50 bg-white/90 backdrop-blur shadow-sm">
+<header class="fixed inset-x-0 top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
 
         <!-- Logo -->
-        <a href="#" class="flex items-center gap-2 font-bold text-xl text-brand">
+        <a href="#" class="flex items-center gap-2 font-bold text-lg sm:text-xl text-brand relative z-50">
             @if(!empty($settings['logo_url']))
-                <img src="{{ $settings['logo_url'] }}" alt="{{ $settings['logo_text'] ?? 'Logo' }}" class="h-9 w-auto object-contain"/>
+                <img src="{{ $settings['logo_url'] }}" alt="{{ $settings['logo_text'] ?? 'Logo' }}" class="h-8 sm:h-9 w-auto object-contain"/>
             @else
-                <svg class="w-7 h-7 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="w-6 h-6 sm:w-7 sm:h-7 text-gold" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93V18c0-.55.45-1 1-1s1 .45 1 1v1.93A8.01 8.01 0 0 1 4.07 13H6c.55 0 1 .45 1 1s-.45 1-1 1H4.07A8.01 8.01 0 0 1 11 19.93zM4.07 11H6c.55 0 1-.45 1-1s-.45-1-1-1H4.07A8.01 8.01 0 0 1 11 4.07V6c0 .55.45 1 1 1s1-.45 1-1V4.07A8.01 8.01 0 0 1 19.93 11H18c-.55 0-1 .45-1 1s.45 1 1 1h1.93A8.01 8.01 0 0 1 13 19.93V18c0-.55-.45-1-1-1s-1 .45-1 1v1.93A8.01 8.01 0 0 1 4.07 13H6"/>
                 </svg>
-                {{ $settings['logo_text'] ?? 'Erazehan International' }}
+                <span class="hidden xs:inline">{{ $settings['logo_text'] ?? 'Erazehan International' }}</span>
             @endif
         </a>
 
         <!-- Desktop nav -->
         <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
             @foreach($navItems as $item)
-            <a href="{{ $item->url }}" class="hover:text-brand transition">{{ $item->label }}</a>
+            <a href="{{ $item->url }}" class="hover:text-brand transition-colors duration-200">{{ $item->label }}</a>
             @endforeach
         </nav>
 
         <!-- CTA -->
         <a href="{{ $settings['nav_cta_link'] ?? '#contact' }}"
-           class="hidden md:inline-flex items-center gap-2 bg-brand text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-brand-dark transition">
+           class="hidden md:inline-flex items-center gap-2 bg-brand text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-brand-dark transition-all duration-200 shadow-sm hover:shadow-md">
             {{ $settings['nav_cta_text'] ?? 'Free Consultation' }}
         </a>
 
         <!-- Mobile toggle -->
-        <button id="menuBtn" class="md:hidden p-2 rounded text-gray-600 hover:text-brand">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button id="menuBtn" class="md:hidden p-2 rounded-lg text-gray-600 hover:text-brand hover:bg-gray-100 transition-all duration-200 relative z-50">
+            <svg id="menuIcon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            <svg id="closeIcon" class="w-6 h-6 hidden transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
         </button>
     </div>
 
-    <!-- Mobile nav -->
-    <div id="mobileMenu" class="hidden md:hidden bg-white border-t px-4 pb-4 space-y-2 text-sm font-medium text-gray-700">
-        @foreach($navItems as $item)
-        <a href="{{ $item->url }}" class="block py-2 hover:text-brand">{{ $item->label }}</a>
-        @endforeach
-        <a href="{{ $settings['nav_cta_link'] ?? '#contact' }}"
-           class="block mt-2 bg-brand text-white text-center py-2 rounded-full">
-            {{ $settings['nav_cta_text'] ?? 'Free Consultation' }}
-        </a>
+    <!-- Mobile nav - Modern slide-in menu -->
+    <div id="mobileMenu" class="fixed inset-0 z-40 md:hidden pointer-events-none">
+        <!-- Backdrop -->
+        <div id="menuBackdrop" class="absolute inset-0 bg-black/50 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+        
+        <!-- Menu panel -->
+        <div id="menuPanel" class="absolute top-0 right-0 h-full w-72 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-out">
+            <div class="flex flex-col h-full pt-20 pb-6 px-6">
+                <!-- Navigation links -->
+                <nav class="flex-1 space-y-1">
+                    @foreach($navItems as $item)
+                    <a href="{{ $item->url }}" class="mobile-nav-link block py-3 px-4 text-gray-700 hover:text-brand hover:bg-brand-light rounded-lg transition-all duration-200 font-medium">
+                        {{ $item->label }}
+                    </a>
+                    @endforeach
+                </nav>
+                
+                <!-- CTA Button -->
+                <a href="{{ $settings['nav_cta_link'] ?? '#contact' }}"
+                   class="block mt-4 bg-brand text-white text-center py-3 px-6 rounded-full font-semibold hover:bg-brand-dark transition-all duration-200 shadow-lg hover:shadow-xl">
+                    {{ $settings['nav_cta_text'] ?? 'Free Consultation' }}
+                </a>
+            </div>
+        </div>
     </div>
 </header>
 
@@ -538,8 +556,53 @@
 <script>
     AOS.init({ duration: 700, once: true, offset: 60 });
 
-    document.getElementById('menuBtn').addEventListener('click', () => {
-        document.getElementById('mobileMenu').classList.toggle('hidden');
+    // Modern mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuPanel = document.getElementById('menuPanel');
+    const menuBackdrop = document.getElementById('menuBackdrop');
+    const menuIcon = document.getElementById('menuIcon');
+    const closeIcon = document.getElementById('closeIcon');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    
+    let isMenuOpen = false;
+
+    function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        
+        if (isMenuOpen) {
+            // Open menu
+            mobileMenu.classList.remove('pointer-events-none');
+            menuBackdrop.classList.remove('opacity-0');
+            menuBackdrop.classList.add('opacity-100');
+            menuPanel.classList.remove('translate-x-full');
+            menuPanel.classList.add('translate-x-0');
+            menuIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        } else {
+            // Close menu
+            menuBackdrop.classList.remove('opacity-100');
+            menuBackdrop.classList.add('opacity-0');
+            menuPanel.classList.remove('translate-x-0');
+            menuPanel.classList.add('translate-x-full');
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            document.body.style.overflow = '';
+            setTimeout(() => {
+                mobileMenu.classList.add('pointer-events-none');
+            }, 300);
+        }
+    }
+
+    menuBtn.addEventListener('click', toggleMenu);
+    menuBackdrop.addEventListener('click', toggleMenu);
+    
+    // Close menu when clicking nav links
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (isMenuOpen) toggleMenu();
+        });
     });
 
     // ── Country Slider ──
