@@ -23,18 +23,18 @@
             <div class="grid sm:grid-cols-2 gap-5">
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1.5">Title</label>
-                    <input type="text" name="title" value="{{ old('title', $slide->title) }}" required
+                    <input type="text" name="title" value="{{ old('title', $slide->title) }}"
                            class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1.5">Highlight Text</label>
-                    <input type="text" name="highlight" value="{{ old('highlight', $slide->highlight) }}" required
+                    <input type="text" name="highlight" value="{{ old('highlight', $slide->highlight) }}"
                            class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                 </div>
             </div>
             <div>
                 <label class="block text-xs font-semibold text-gray-600 mb-1.5">Subtitle</label>
-                <textarea name="subtitle" rows="3" required
+                <textarea name="subtitle" rows="3"
                           class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('subtitle', $slide->subtitle) }}</textarea>
             </div>
             <div class="grid sm:grid-cols-2 gap-5">
