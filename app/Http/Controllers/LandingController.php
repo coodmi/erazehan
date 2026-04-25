@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
 class LandingController extends Controller
@@ -22,6 +23,7 @@ class LandingController extends Controller
         ]);
 
         // TODO: send mail / store in DB
+        Contact::create($request->only('name','email','phone','service','message'));
         return back()->with('success', 'Thank you! We will get back to you shortly.');
     }
 }
