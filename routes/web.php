@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\WhyUsController;
 use App\Http\Controllers\Admin\SettingsController;
 
+use App\Http\Controllers\Admin\FooterController;
 use App\Http\Controllers\Admin\NavController;
 
 // ── Public ──────────────────────────────────────────────
@@ -52,6 +53,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post  ('whyus',          [WhyUsController::class, 'store'])->name('whyus.store');
         Route::put   ('whyus/{whyus}',  [WhyUsController::class, 'update'])->name('whyus.update');
         Route::delete('whyus/{whyus}',  [WhyUsController::class, 'destroy'])->name('whyus.destroy');
+
+        // Footer
+        Route::get   ('footer',               [FooterController::class, 'index'])->name('footer.index');
+        Route::post  ('footer/settings',      [FooterController::class, 'saveSettings'])->name('footer.settings');
+        Route::post  ('footer/links',         [FooterController::class, 'storeLink'])->name('footer.links.store');
+        Route::put   ('footer/links/{footer}',[FooterController::class, 'updateLink'])->name('footer.links.update');
+        Route::delete('footer/links/{footer}',[FooterController::class, 'destroyLink'])->name('footer.links.destroy');
 
         // Nav / Header
         Route::get   ('nav',            [NavController::class, 'index'])->name('nav.index');

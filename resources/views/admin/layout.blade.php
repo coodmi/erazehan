@@ -79,6 +79,13 @@
             Why Us
         </a>
 
+        <a href="{{ route('admin.footer.index') }}"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl mb-1 text-sm font-medium transition
+                  {{ request()->routeIs('admin.footer*') ? 'bg-blue-600 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 20h16M4 16h16M4 12h10"/></svg>
+            Footer
+        </a>
+
         <!-- CRM -->
         <p class="text-slate-500 text-xs font-semibold uppercase tracking-widest px-3 mt-5 mb-2">CRM</p>
 

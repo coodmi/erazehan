@@ -414,41 +414,62 @@
 <!-- ─── FOOTER ────────────────────────────────────────────────────────── -->
 <footer class="bg-gray-900 text-gray-400 py-12 px-4">
     <div class="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
+
+        <!-- Brand -->
         <div>
-            <div class="text-white font-bold text-lg mb-3">Erazehan International</div>
-            <p class="text-sm leading-relaxed">Your trusted immigration partner since 2009. Certified, experienced, and dedicated to your success.</p>
+            @if(!empty($settings['footer_logo_url']))
+                <img src="{{ $settings['footer_logo_url'] }}" alt="{{ $settings['logo_text'] ?? 'Logo' }}" class="h-10 mb-3 object-contain"/>
+            @else
+                <div class="text-white font-bold text-lg mb-3">{{ $settings['logo_text'] ?? 'Erazehan International' }}</div>
+            @endif
+            <p class="text-sm leading-relaxed">{{ $settings['footer_about'] ?? '' }}</p>
         </div>
+
+        <!-- Services -->
         <div>
             <div class="text-white font-semibold mb-3 text-sm">Services</div>
             <ul class="space-y-2 text-sm">
-                @foreach(['Student Visa','Work Visa','Tourist Visa','Permanent Residency','Business Visa'] as $s)
-                <li><a href="#services" class="hover:text-white transition">{{ $s }}</a></li>
+                @foreach($footerLinks['services'] ?? [] as $link)
+                @if($link->active)
+                <li><a href="{{ $link->url }}" class="hover:text-white transition">{{ $link->label }}</a></li>
+                @endif
                 @endforeach
             </ul>
         </div>
+
+        <!-- Company -->
         <div>
             <div class="text-white font-semibold mb-3 text-sm">Company</div>
             <ul class="space-y-2 text-sm">
-                @foreach(['About Us','Our Team','Success Stories','Blog','Careers'] as $l)
-                <li><a href="#" class="hover:text-white transition">{{ $l }}</a></li>
+                @foreach($footerLinks['company'] ?? [] as $link)
+                @if($link->active)
+                <li><a href="{{ $link->url }}" class="hover:text-white transition">{{ $link->label }}</a></li>
+                @endif
                 @endforeach
             </ul>
         </div>
+
+        <!-- Social -->
         <div>
             <div class="text-white font-semibold mb-3 text-sm">Follow Us</div>
-            <div class="flex gap-3">
-                @foreach(['Facebook','Twitter','LinkedIn','Instagram'] as $social)
-                <a href="#" class="w-9 h-9 rounded-full bg-gray-700 hover:bg-brand flex items-center justify-center text-xs transition">
-                    {{ substr($social,0,2) }}
+            <div class="flex gap-3 flex-wrap">
+                @foreach($footerLinks['social'] ?? [] as $link)
+                @if($link->active)
+                <a href="{{ $link->url }}" class="w-9 h-9 rounded-full bg-gray-700 hover:bg-blue-600 flex items-center justify-center text-xs transition" title="{{ $link->label }}">
+                    {{ strtoupper(substr($link->label,0,2)) }}
                 </a>
+                @endif
                 @endforeach
             </div>
         </div>
     </div>
+
     <div class="border-t border-gray-800 pt-6 text-center text-xs">
-        © {{ date('Y') }} Erazehan International. All rights reserved. &nbsp;|&nbsp;
-        <a href="#" class="hover:text-white">Privacy Policy</a> &nbsp;|&nbsp;
-        <a href="#" class="hover:text-white">Terms of Service</a>
+        © {{ date('Y') }} {{ $settings['footer_copyright'] ?? 'Erazehan International. All rights reserved.' }}
+        &nbsp;|&nbsp;
+        <a href="{{ $settings['footer_privacy_url'] ?? '#' }}" class="hover:text-white">Privacy Policy</a>
+        &nbsp;|&nbsp;
+        <a href="{{ $settings['footer_terms_url'] ?? '#' }}" class="hover:text-white">Terms of Service</a>
     </div>
 </footer>
 

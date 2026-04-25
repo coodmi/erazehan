@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\FooterLink;
 use App\Models\NavItem;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
@@ -11,10 +12,11 @@ class LandingController extends Controller
 {
     public function index()
     {
-        $settings   = SiteSetting::pluck('value', 'key');
-        $navItems   = NavItem::where('active', true)->orderBy('sort_order')->get();
-        $heroSlides = \App\Models\HeroSlide::where('active', true)->orderBy('sort_order')->get();
-        return view('landing', compact('settings', 'navItems', 'heroSlides'));
+        $settings    = SiteSetting::pluck('value', 'key');
+        $navItems    = NavItem::where('active', true)->orderBy('sort_order')->get();
+        $heroSlides  = \App\Models\HeroSlide::where('active', true)->orderBy('sort_order')->get();
+        $footerLinks = FooterLink::where('active', true)->orderBy('sort_order')->get()->groupBy('column');
+        return view('landing', compact('settings', 'navItems', 'heroSlides', 'footerLinks'));
     }
 
     public function contact(Request $request)
