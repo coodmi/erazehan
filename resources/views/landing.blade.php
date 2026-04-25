@@ -32,19 +32,36 @@
         /* ── Hero Slider ── */
         #hero-slider {
             position: relative; overflow: hidden;
-            height: 100vh; min-height: 520px;
+            height: 100vh; 
+            min-height: 500px;
+            max-height: 900px;
+        }
+        
+        @media (max-width: 768px) {
+            #hero-slider {
+                min-height: 600px;
+                max-height: 700px;
+            }
         }
 
         .slide {
             position: absolute; inset: 0;
-            background-size: cover; background-position: center;
-            opacity: 0; transition: opacity 1.1s ease;
+            background-size: cover; 
+            background-position: center;
+            opacity: 0; 
+            transition: opacity 1.1s ease;
         }
         .slide.active { opacity: 1; }
 
         .slide-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(to right, rgba(10,20,80,.72) 0%, rgba(10,20,80,.35) 60%, transparent 100%);
+            background: linear-gradient(to right, rgba(10,20,80,.85) 0%, rgba(10,20,80,.65) 50%, rgba(10,20,80,.45) 100%);
+        }
+        
+        @media (max-width: 768px) {
+            .slide-overlay {
+                background: linear-gradient(to bottom, rgba(10,20,80,.75) 0%, rgba(10,20,80,.85) 100%);
+            }
         }
 
         /* dot buttons */
@@ -54,6 +71,13 @@
             transition: background .3s, width .3s;
         }
         .slider-dot.active { background: #f97316; width: 44px; }
+        
+        @media (max-width: 640px) {
+            .slider-dot {
+                width: 20px; height: 3px;
+            }
+            .slider-dot.active { width: 32px; }
+        }
 
         /* arrow buttons */
         .slider-arrow {
@@ -67,6 +91,14 @@
         .slider-arrow:hover { background: rgba(255,255,255,.25); }
         #prevBtn { left: 18px; }
         #nextBtn { right: 18px; }
+        
+        @media (max-width: 640px) {
+            .slider-arrow {
+                width: 36px; height: 36px;
+            }
+            #prevBtn { left: 10px; }
+            #nextBtn { right: 10px; }
+        }
     </style>
 </head>
 <body class="font-sans text-gray-800 antialiased">
@@ -146,28 +178,28 @@
          style="background-image: url('{{ Str::startsWith($slide->image_url, '/') || Str::startsWith($slide->image_url, 'http') ? $slide->image_url : asset('storage/' . $slide->image_url) }}');">
         <div class="slide-overlay"></div>
         <div class="absolute inset-0 flex items-center z-10">
-            <div class="max-w-7xl mx-auto w-full px-8 sm:px-14 lg:px-20">
-                <div class="max-w-lg">
+            <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-20">
+                <div class="max-w-2xl">
                     @if($slide->title || $slide->highlight)
-                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-3">
+                    <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-3 sm:mb-4">
                         {{ $slide->title }}
-                        @if($slide->highlight)<span class="text-orange-400">{{ $slide->highlight }}</span>@endif
+                        @if($slide->highlight)<span class="text-orange-400 block sm:inline mt-1 sm:mt-0">{{ $slide->highlight }}</span>@endif
                     </h1>
                     @endif
                     @if($slide->subtitle)
-                    <p class="text-white/80 text-base mb-7">{{ $slide->subtitle }}</p>
+                    <p class="text-white/90 text-sm sm:text-base md:text-lg mb-6 sm:mb-7 leading-relaxed">{{ $slide->subtitle }}</p>
                     @endif
                     @if($slide->btn1_text || $slide->btn2_text)
-                    <div class="flex flex-wrap gap-4 items-center">
+                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
                         @if($slide->btn1_text)
                         <a href="{{ $slide->btn1_link ?? '#' }}"
-                           class="bg-orange-500 hover:bg-orange-400 text-white font-semibold px-6 py-2.5 rounded-full transition text-sm">
+                           class="bg-orange-500 hover:bg-orange-400 text-white font-semibold px-6 py-3 sm:py-2.5 rounded-full transition text-sm sm:text-base text-center shadow-lg">
                             {{ $slide->btn1_text }}
                         </a>
                         @endif
                         @if($slide->btn2_text)
                         <a href="{{ $slide->btn2_link ?? '#' }}"
-                           class="text-white/90 hover:text-white font-medium text-sm transition underline-offset-4 hover:underline">
+                           class="text-white/90 hover:text-white font-medium text-sm sm:text-base transition underline-offset-4 hover:underline text-center sm:text-left">
                             {{ $slide->btn2_text }}
                         </a>
                         @endif
@@ -192,7 +224,7 @@
     </button>
 
     <!-- Dot indicators -->
-    <div id="slider-dots" class="absolute bottom-7 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+    <div id="slider-dots" class="absolute bottom-6 sm:bottom-7 left-1/2 -translate-x-1/2 z-20 flex gap-1.5 sm:gap-2">
         @foreach($heroSlides as $i => $slide)
         <button class="slider-dot {{ $i === 0 ? 'active' : '' }}" data-dot="{{ $i }}" aria-label="Slide {{ $i+1 }}"></button>
         @endforeach
