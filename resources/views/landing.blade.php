@@ -337,7 +337,10 @@
                     <div class="w-10 h-10 rounded-full bg-brand-light flex items-center justify-center text-brand font-bold">📞</div>
                     <div>
                         <div class="font-semibold">Phone</div>
-                        <div class="text-gray-500">+880 1604421474 / +880 1972686069</div>
+                        <div class="text-gray-500">
+                            +880 1877654064 / +880 1611272578<br>
+                            +880 1604421474 / +880 1972686069
+                        </div>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
