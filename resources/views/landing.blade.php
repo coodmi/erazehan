@@ -330,7 +330,7 @@
                     <div class="w-10 h-10 rounded-full bg-brand-light flex items-center justify-center text-brand font-bold">📍</div>
                     <div>
                         <div class="font-semibold">Office</div>
-                        <div class="text-gray-500">123 Immigration Ave, Suite 400, Toronto, ON M5V 2T6</div>
+                        <div class="text-gray-500">{{ $settings['address'] ?? 'House B-158, Flat 3, Road-22, Mohakhali DoHS' }}</div>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -412,7 +412,7 @@
 </section>
 
 <!-- ─── FOOTER ────────────────────────────────────────────────────────── -->
-<footer class="bg-white text-gray-500 py-12 px-4 border-t border-gray-100">
+<footer class="bg-slate-50 text-gray-500 py-12 px-4 border-t border-gray-200">
     <div class="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
 
         <!-- Brand -->
@@ -494,7 +494,7 @@
         </div>
     </div>
 
-    <div class="border-t border-gray-100 pt-6 text-xs">
+    <div class="border-t border-gray-200 pt-6 text-xs">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 px-4 sm:px-6 lg:px-8">
             <span class="text-gray-400">© {{ date('Y') }} {{ $settings['footer_copyright'] ?? 'Erazehan International. All rights reserved.' }}</span>
             <span class="text-gray-400">Design &amp; Developed By <a href="https://alphainno.com" target="_blank" rel="noopener" class="text-orange-500 hover:text-orange-400 font-semibold transition">Alphainno</a></span>

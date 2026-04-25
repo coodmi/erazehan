@@ -50,7 +50,7 @@ class ContentSeeder extends Seeder
             ['key'=>'tagline','value'=>'Your Trusted Immigration Partner','created_at'=>now(),'updated_at'=>now()],
             ['key'=>'phone','value'=>'+1 (800) 555-VISA','created_at'=>now(),'updated_at'=>now()],
             ['key'=>'email','value'=>'info@globalvisa.com','created_at'=>now(),'updated_at'=>now()],
-            ['key'=>'address','value'=>'123 Immigration Ave, Suite 400, Toronto, ON M5V 2T6','created_at'=>now(),'updated_at'=>now()],
+            ['key'=>'address','value'=>'House B-158, Flat 3, Road-22, Mohakhali DoHS','created_at'=>now(),'updated_at'=>now()],
         ]);
     }
 }
