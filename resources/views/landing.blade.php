@@ -494,12 +494,9 @@
         </div>
     </div>
 
-    <div class="border-t border-gray-800 pt-6 text-center text-xs">
-        © {{ date('Y') }} {{ $settings['footer_copyright'] ?? 'Erazehan International. All rights reserved.' }}
-        &nbsp;|&nbsp;
-        <a href="{{ $settings['footer_privacy_url'] ?? '#' }}" class="hover:text-white">Privacy Policy</a>
-        &nbsp;|&nbsp;
-        <a href="{{ $settings['footer_terms_url'] ?? '#' }}" class="hover:text-white">Terms of Service</a>
+    <div class="border-t border-gray-800 pt-6 text-xs flex flex-col sm:flex-row items-center justify-between gap-2 px-2">
+        <span>© {{ date('Y') }} {{ $settings['footer_copyright'] ?? 'Erazehan International. All rights reserved.' }}</span>
+        <span>Design &amp; Developed By <a href="https://alphainno.com" target="_blank" rel="noopener" class="text-orange-400 hover:text-orange-300 font-semibold transition">Alphainno</a></span>
     </div>
 </footer>
 
