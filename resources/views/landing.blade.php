@@ -412,8 +412,9 @@
 </section>
 
 <!-- ─── FOOTER ────────────────────────────────────────────────────────── -->
-<footer class="bg-slate-50 text-gray-500 py-12 px-4 border-t border-gray-200">
-    <div class="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
+<footer class="bg-slate-50 text-gray-500 py-12 border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
 
         <!-- Brand -->
         <div>
@@ -516,6 +517,7 @@
                 <div id="countryDots" class="flex gap-1.5 mt-3 flex-wrap"></div>
             </div>
         </div>
+    </div>
     </div>
 
     <div class="border-t border-gray-200 pt-6 text-xs">
