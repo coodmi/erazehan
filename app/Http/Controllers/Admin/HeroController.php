@@ -9,12 +9,15 @@ use Illuminate\Support\Facades\File;
 
 class HeroController extends Controller
 {
-    private function uploadImage($file, $prefix = 'slide'): string
+    private function uploadImage($base64, $prefix = 'slide'): string
     {
-        $filename  = $prefix . '_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        // Decode base64 data URL
+        $data     = preg_replace('/^data:image\/\w+;base64,/', '', $base64);
+        $data     = base64_decode($data);
+        $filename = $prefix . '_' . time() . '_' . uniqid() . '.jpg';
         $uploadDir = '/home/khanplac/erazehan.com/uploads';
         File::ensureDirectoryExists($uploadDir);
-        $file->move($uploadDir, $filename);
+        file_put_contents($uploadDir . '/' . $filename, $data);
         return '/uploads/' . $filename;
     }
 
@@ -25,19 +28,19 @@ class HeroController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'image'      => 'required|image|max:4096',
-            'title'      => 'nullable|string|max:200',
-            'highlight'  => 'nullable|string|max:200',
-            'subtitle'   => 'nullable|string',
-            'btn1_text'  => 'nullable|string|max:100',
-            'btn1_link'  => 'nullable|string|max:200',
-            'btn2_text'  => 'nullable|string|max:100',
-            'btn2_link'  => 'nullable|string|max:200',
-            'sort_order' => 'integer',
+            'image_base64' => 'required|string',
+            'title'        => 'nullable|string|max:200',
+            'highlight'    => 'nullable|string|max:200',
+            'subtitle'     => 'nullable|string',
+            'btn1_text'    => 'nullable|string|max:100',
+            'btn1_link'    => 'nullable|string|max:200',
+            'btn2_text'    => 'nullable|string|max:100',
+            'btn2_link'    => 'nullable|string|max:200',
+            'sort_order'   => 'integer',
         ]);
-        $data['image_url'] = $this->uploadImage($request->file('image'));
+        $data['image_url'] = $this->uploadImage($request->image_base64);
         $data['active']    = $request->boolean('active');
-        unset($data['image']);
+        unset($data['image_base64']);
         HeroSlide::create($data);
         return redirect()->route('admin.hero.index')->with('success', 'Slide created.');
     }
@@ -47,21 +50,21 @@ class HeroController extends Controller
     public function update(Request $request, HeroSlide $hero)
     {
         $data = $request->validate([
-            'image'      => 'nullable|image|max:4096',
-            'title'      => 'nullable|string|max:200',
-            'highlight'  => 'nullable|string|max:200',
-            'subtitle'   => 'nullable|string',
-            'btn1_text'  => 'nullable|string|max:100',
-            'btn1_link'  => 'nullable|string|max:200',
-            'btn2_text'  => 'nullable|string|max:100',
-            'btn2_link'  => 'nullable|string|max:200',
-            'sort_order' => 'integer',
+            'image_base64' => 'nullable|string',
+            'title'        => 'nullable|string|max:200',
+            'highlight'    => 'nullable|string|max:200',
+            'subtitle'     => 'nullable|string',
+            'btn1_text'    => 'nullable|string|max:100',
+            'btn1_link'    => 'nullable|string|max:200',
+            'btn2_text'    => 'nullable|string|max:100',
+            'btn2_link'    => 'nullable|string|max:200',
+            'sort_order'   => 'integer',
         ]);
-        if ($request->hasFile('image')) {
-            $data['image_url'] = $this->uploadImage($request->file('image'));
+        if (!empty($request->image_base64)) {
+            $data['image_url'] = $this->uploadImage($request->image_base64);
         }
         $data['active'] = $request->boolean('active');
-        unset($data['image']);
+        unset($data['image_base64']);
         $hero->update($data);
         return redirect()->route('admin.hero.index')->with('success', 'Slide updated.');
     }

@@ -4,7 +4,7 @@
 @section('content')
 <div class="max-w-2xl">
     <div class="bg-white rounded-2xl shadow-sm p-6">
-        <form method="POST" action="{{ $slide->exists ? route('admin.hero.update', $slide) : route('admin.hero.store') }}" enctype="multipart/form-data" class="space-y-5">
+        <form method="POST" action="{{ $slide->exists ? route('admin.hero.update', $slide) : route('admin.hero.store') }}" enctype="multipart/form-data" class="space-y-5" id="slideForm">
             @csrf
             @if($slide->exists) @method('PUT') @endif
 
@@ -16,8 +16,14 @@
                     <p class="text-xs text-gray-400 mt-1">Current image — upload a new one to replace</p>
                 </div>
                 @endif
-                <input type="file" name="image" accept="image/*" {{ $slide->exists ? '' : 'required' }}
+                <!-- Hidden canvas-compressed input -->
+                <input type="hidden" name="image_base64" id="image_base64"/>
+                <input type="file" id="imageFile" accept="image/*" {{ $slide->exists ? '' : 'required' }}
                        class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
+                <div id="previewWrap" class="mt-2 hidden">
+                    <img id="previewImg" class="h-24 rounded-xl border border-gray-200 object-cover w-full"/>
+                    <p id="sizeInfo" class="text-xs text-gray-400 mt-1"></p>
+                </div>
                 @error('image')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
             <div class="grid sm:grid-cols-2 gap-5">
@@ -73,10 +79,54 @@
                 </div>
             </div>
             <div class="flex gap-3 pt-2">
-                <button type="submit" class="bg-blue-700 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-800 transition text-sm">Save Slide</button>
+                <button type="submit" id="submitBtn" class="bg-blue-700 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-800 transition text-sm">Save Slide</button>
                 <a href="{{ route('admin.hero.index') }}" class="px-6 py-3 rounded-xl border text-sm font-medium hover:bg-gray-50 transition">Cancel</a>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+const fileInput   = document.getElementById('imageFile');
+const b64Input    = document.getElementById('image_base64');
+const previewWrap = document.getElementById('previewWrap');
+const previewImg  = document.getElementById('previewImg');
+const sizeInfo    = document.getElementById('sizeInfo');
+const submitBtn   = document.getElementById('submitBtn');
+
+fileInput.addEventListener('change', function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        const img = new Image();
+        img.onload = function () {
+            // Resize to max 1400px wide, compress to 0.75 quality
+            const MAX_W = 1400;
+            let w = img.width, h = img.height;
+            if (w > MAX_W) { h = Math.round(h * MAX_W / w); w = MAX_W; }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = w; canvas.height = h;
+            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+
+            const compressed = canvas.toDataURL('image/jpeg', 0.75);
+            b64Input.value   = compressed;
+            previewImg.src   = compressed;
+            previewWrap.classList.remove('hidden');
+
+            const kb = Math.round((compressed.length * 3/4) / 1024);
+            sizeInfo.textContent = `Compressed: ~${kb} KB (${w}×${h}px)`;
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+});
+
+document.getElementById('slideForm').addEventListener('submit', function () {
+    submitBtn.disabled    = true;
+    submitBtn.textContent = 'Saving…';
+});
+</script>
 @endsection
