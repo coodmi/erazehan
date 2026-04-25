@@ -495,20 +495,25 @@
             <!-- We Operate In -->
             <div class="mt-5">
                 <div class="text-gray-800 font-semibold mb-3 text-sm">We Operate In</div>
-                <div class="flex flex-wrap gap-2">
-                    @foreach([
-                        ['🇩🇪','Germany'],['🇫🇷','France'],['🇮🇹','Italy'],['🇪🇸','Spain'],
-                        ['🇵🇹','Portugal'],['🇳🇱','Netherlands'],['🇧🇪','Belgium'],['🇦🇹','Austria'],
-                        ['🇵🇱','Poland'],['🇷🇴','Romania'],['🇨🇿','Czech Rep.'],['🇭🇺','Hungary'],
-                        ['🇸🇪','Sweden'],['🇳🇴','Norway'],['🇩🇰','Denmark'],['🇫🇮','Finland'],
-                        ['🇨🇭','Switzerland'],['🇬🇷','Greece'],['🇭🇷','Croatia'],['🇸🇰','Slovakia'],
-                    ] as [$flag, $country])
-                    <div class="flex items-center gap-1.5 bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-default" title="{{ $country }}">
-                        <span class="text-lg leading-none">{{ $flag }}</span>
-                        <span class="text-xs text-gray-600 font-medium">{{ $country }}</span>
+                <!-- Slider track -->
+                <div class="relative overflow-hidden">
+                    <div id="countryTrack" class="flex gap-2 transition-transform duration-500 ease-in-out">
+                        @foreach([
+                            ['🇩🇪','Germany'],['🇫🇷','France'],['🇮🇹','Italy'],['🇪🇸','Spain'],
+                            ['🇵🇹','Portugal'],['🇳🇱','Netherlands'],['🇧🇪','Belgium'],['🇦🇹','Austria'],
+                            ['🇵🇱','Poland'],['🇷🇴','Romania'],['🇨🇿','Czech Rep.'],['🇭🇺','Hungary'],
+                            ['🇸🇪','Sweden'],['🇳🇴','Norway'],['🇩🇰','Denmark'],['🇫🇮','Finland'],
+                            ['🇨🇭','Switzerland'],['🇬🇷','Greece'],['🇭🇷','Croatia'],['🇸🇰','Slovakia'],
+                        ] as [$flag, $country])
+                        <div class="flex-shrink-0 flex items-center gap-1.5 bg-white border border-gray-200 rounded-xl px-3 py-2 shadow-sm">
+                            <span class="text-xl leading-none">{{ $flag }}</span>
+                            <span class="text-xs text-gray-700 font-medium whitespace-nowrap">{{ $country }}</span>
+                        </div>
+                        @endforeach
                     </div>
-                    @endforeach
                 </div>
+                <!-- Dot controls -->
+                <div id="countryDots" class="flex gap-1.5 mt-3 flex-wrap"></div>
             </div>
         </div>
     </div>
@@ -530,7 +535,43 @@
         document.getElementById('mobileMenu').classList.toggle('hidden');
     });
 
-    // ── Hero Slider ──
+    // ── Country Slider ──
+    (function () {
+        const track    = document.getElementById('countryTrack');
+        const dotsWrap = document.getElementById('countryDots');
+        if (!track) return;
+
+        const items    = track.children;
+        const perPage  = 4;
+        const total    = items.length;
+        const pages    = Math.ceil(total / perPage);
+        let current    = 0;
+
+        // Build dots
+        for (let i = 0; i < pages; i++) {
+            const d = document.createElement('button');
+            d.className = 'w-5 h-1.5 rounded-full transition-all duration-300 ' + (i === 0 ? 'bg-blue-600 w-6' : 'bg-gray-300');
+            d.addEventListener('click', () => goTo(i));
+            dotsWrap.appendChild(d);
+        }
+
+        function goTo(page) {
+            current = page;
+            // Calculate offset: sum widths of items before this page
+            let offset = 0;
+            for (let i = 0; i < page * perPage && i < total; i++) {
+                offset += items[i].offsetWidth + 8; // 8 = gap-2
+            }
+            track.style.transform = `translateX(-${offset}px)`;
+            // Update dots
+            Array.from(dotsWrap.children).forEach((d, i) => {
+                d.className = 'h-1.5 rounded-full transition-all duration-300 ' + (i === page ? 'bg-blue-600 w-6' : 'bg-gray-300 w-5');
+            });
+        }
+
+        // Auto-advance
+        setInterval(() => goTo((current + 1) % pages), 2500);
+    })();
     const slides = document.querySelectorAll('.slide');
     const dots   = document.querySelectorAll('.slider-dot');
     let current  = 0;
