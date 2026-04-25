@@ -38,10 +38,22 @@ class NavController extends Controller
 
     public function saveHeader(Request $request)
     {
-        $fields = ['logo_text','logo_url','nav_cta_text','nav_cta_link'];
-        foreach ($fields as $key) {
-            SiteSetting::updateOrCreate(['key'=>$key],['value'=>$request->input($key,'')]);
+        $request->validate([
+            'logo_text'    => 'nullable|string|max:100',
+            'logo_image'   => 'nullable|image|max:2048',
+            'nav_cta_text' => 'nullable|string|max:100',
+            'nav_cta_link' => 'nullable|string|max:200',
+        ]);
+
+        SiteSetting::updateOrCreate(['key'=>'logo_text'],    ['value'=>$request->logo_text]);
+        SiteSetting::updateOrCreate(['key'=>'nav_cta_text'], ['value'=>$request->nav_cta_text]);
+        SiteSetting::updateOrCreate(['key'=>'nav_cta_link'], ['value'=>$request->nav_cta_link]);
+
+        if ($request->hasFile('logo_image')) {
+            $path = '/storage/' . $request->file('logo_image')->store('logo', 'public');
+            SiteSetting::updateOrCreate(['key'=>'logo_url'], ['value'=>$path]);
         }
+
         return back()->with('success','Header settings saved.');
     }
 }

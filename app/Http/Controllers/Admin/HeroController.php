@@ -15,7 +15,7 @@ class HeroController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'image_url'  => 'required|url',
+            'image'      => 'required|image|max:4096',
             'title'      => 'required|string|max:200',
             'highlight'  => 'required|string|max:200',
             'subtitle'   => 'required|string',
@@ -26,7 +26,9 @@ class HeroController extends Controller
             'sort_order' => 'integer',
             'active'     => 'boolean',
         ]);
+        $data['image_url'] = '/storage/' . $request->file('image')->store('slides', 'public');
         $data['active'] = $request->boolean('active');
+        unset($data['image']);
         HeroSlide::create($data);
         return redirect()->route('admin.hero.index')->with('success', 'Slide created.');
     }
@@ -36,7 +38,7 @@ class HeroController extends Controller
     public function update(Request $request, HeroSlide $hero)
     {
         $data = $request->validate([
-            'image_url'  => 'required|url',
+            'image'      => 'nullable|image|max:4096',
             'title'      => 'required|string|max:200',
             'highlight'  => 'required|string|max:200',
             'subtitle'   => 'required|string',
@@ -47,7 +49,11 @@ class HeroController extends Controller
             'sort_order' => 'integer',
             'active'     => 'boolean',
         ]);
+        if ($request->hasFile('image')) {
+            $data['image_url'] = '/storage/' . $request->file('image')->store('slides', 'public');
+        }
         $data['active'] = $request->boolean('active');
+        unset($data['image']);
         $hero->update($data);
         return redirect()->route('admin.hero.index')->with('success', 'Slide updated.');
     }

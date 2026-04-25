@@ -10,7 +10,7 @@
         <h3 class="font-semibold text-gray-700 mb-4 flex items-center gap-2">
             <span class="w-1 h-5 bg-blue-600 rounded-full inline-block"></span> Logo & CTA Button
         </h3>
-        <form method="POST" action="{{ route('admin.nav.header') }}" class="space-y-4">
+        <form method="POST" action="{{ route('admin.nav.header') }}" enctype="multipart/form-data" class="space-y-4">
             @csrf
             <div>
                 <label class="block text-xs font-semibold text-gray-500 mb-1.5">Logo Text</label>
@@ -18,9 +18,15 @@
                        class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
             </div>
             <div>
-                <label class="block text-xs font-semibold text-gray-500 mb-1.5">Logo Image URL <span class="text-gray-400 font-normal">(leave blank to use text)</span></label>
-                <input type="url" name="logo_url" value="{{ $settings['logo_url'] ?? '' }}" placeholder="https://..."
-                       class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                <label class="block text-xs font-semibold text-gray-500 mb-1.5">Logo Image <span class="text-gray-400 font-normal">(upload to replace text)</span></label>
+                @if(!empty($settings['logo_url']))
+                <div class="mb-2 flex items-center gap-3">
+                    <img src="{{ $settings['logo_url'] }}" class="h-10 rounded border border-gray-200" alt="Logo"/>
+                    <span class="text-xs text-gray-400">Current logo</span>
+                </div>
+                @endif
+                <input type="file" name="logo_image" accept="image/*"
+                       class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div>

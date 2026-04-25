@@ -4,15 +4,21 @@
 @section('content')
 <div class="max-w-2xl">
     <div class="bg-white rounded-2xl shadow-sm p-6">
-        <form method="POST" action="{{ $slide->exists ? route('admin.hero.update', $slide) : route('admin.hero.store') }}" class="space-y-5">
+        <form method="POST" action="{{ $slide->exists ? route('admin.hero.update', $slide) : route('admin.hero.store') }}" enctype="multipart/form-data" class="space-y-5">
             @csrf
             @if($slide->exists) @method('PUT') @endif
 
             <div>
-                <label class="block text-xs font-semibold text-gray-600 mb-1.5">Image URL</label>
-                <input type="url" name="image_url" value="{{ old('image_url', $slide->image_url) }}" required
-                       class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
-                @error('image_url')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                <label class="block text-xs font-semibold text-gray-600 mb-1.5">Slide Image</label>
+                @if($slide->exists && $slide->image_url)
+                <div class="mb-2">
+                    <img src="{{ $slide->image_url }}" class="h-28 w-full object-cover rounded-xl border border-gray-200"/>
+                    <p class="text-xs text-gray-400 mt-1">Current image — upload a new one to replace</p>
+                </div>
+                @endif
+                <input type="file" name="image" accept="image/*" {{ $slide->exists ? '' : 'required' }}
+                       class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
+                @error('image')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
             <div class="grid sm:grid-cols-2 gap-5">
                 <div>

@@ -13,9 +13,8 @@ class ServiceController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate(['icon'=>'required','title'=>'required|string|max:200','description'=>'required|string','sort_order'=>'integer','active'=>'boolean']);
-        $data['active'] = $request->boolean('active');
-        Service::create($data);
+        $request->validate(['icon'=>'required','title'=>'required|string|max:200','description'=>'required|string','sort_order'=>'integer','active'=>'boolean']);
+        Service::create(['icon'=>$request->icon,'title'=>$request->title,'description'=>$request->description,'sort_order'=>$request->sort_order??0,'active'=>$request->boolean('active')]);
         return redirect()->route('admin.services.index')->with('success', 'Service created.');
     }
 
@@ -23,9 +22,8 @@ class ServiceController extends Controller
 
     public function update(Request $request, Service $service)
     {
-        $data = $request->validate(['icon'=>'required','title'=>'required|string|max:200','description'=>'required|string','sort_order'=>'integer','active'=>'boolean']);
-        $data['active'] = $request->boolean('active');
-        $service->update($data);
+        $request->validate(['icon'=>'required','title'=>'required|string|max:200','description'=>'required|string','sort_order'=>'integer','active'=>'boolean']);
+        $service->update(['icon'=>$request->icon,'title'=>$request->title,'description'=>$request->description,'sort_order'=>$request->sort_order??0,'active'=>$request->boolean('active')]);
         return redirect()->route('admin.services.index')->with('success', 'Service updated.');
     }
 
