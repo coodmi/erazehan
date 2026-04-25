@@ -32,8 +32,8 @@ class ContentSeeder extends Seeder
         ]);
 
         DB::table('testimonials')->insert([
-            ['name'=>'Sarah M.','visa_type'=>'Canada PR','content'=>'GlobalVisa made the entire PR process stress-free. Got my PR in 8 months!','flag'=>'🇨🇦','active'=>1,'created_at'=>now(),'updated_at'=>now()],
-            ['name'=>'Ahmed K.','visa_type'=>'UK Student Visa','content'=>'I was rejected once before finding GlobalVisa. They helped me reapply and I got my visa within 3 weeks.','flag'=>'🇬🇧','active'=>1,'created_at'=>now(),'updated_at'=>now()],
+            ['name'=>'Sarah M.','visa_type'=>'Canada PR','content'=>'Erazehan International made the entire PR process stress-free. Got my PR in 8 months!','flag'=>'🇨🇦','active'=>1,'created_at'=>now(),'updated_at'=>now()],
+            ['name'=>'Ahmed K.','visa_type'=>'UK Student Visa','content'=>'I was rejected once before finding Erazehan International. They helped me reapply and I got my visa within 3 weeks.','flag'=>'🇬🇧','active'=>1,'created_at'=>now(),'updated_at'=>now()],
             ['name'=>'Priya R.','visa_type'=>'Australia Work Visa','content'=>'Professional, efficient, and genuinely caring team. Received my skilled worker visa without any hassle.','flag'=>'🇦🇺','active'=>1,'created_at'=>now(),'updated_at'=>now()],
         ]);
 
@@ -46,7 +46,7 @@ class ContentSeeder extends Seeder
         ]);
 
         DB::table('site_settings')->insert([
-            ['key'=>'site_name','value'=>'GlobalVisa','created_at'=>now(),'updated_at'=>now()],
+            ['key'=>'site_name','value'=>'Erazehan International','created_at'=>now(),'updated_at'=>now()],
             ['key'=>'tagline','value'=>'Your Trusted Immigration Partner','created_at'=>now(),'updated_at'=>now()],
             ['key'=>'phone','value'=>'+1 (800) 555-VISA','created_at'=>now(),'updated_at'=>now()],
             ['key'=>'email','value'=>'info@globalvisa.com','created_at'=>now(),'updated_at'=>now()],

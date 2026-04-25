@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Admin Login – GlobalVisa</title>
+    <title>Admin Login – Erazehan International</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-blue-900 to-blue-600 flex items-center justify-center px-4">
 
 <div class="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
     <div class="text-center mb-8">
-        <div class="text-3xl font-extrabold text-blue-700">GlobalVisa</div>
+        <div class="text-3xl font-extrabold text-blue-700">Erazehan International</div>
         <p class="text-gray-400 text-sm mt-1">Admin Panel</p>
     </div>
 

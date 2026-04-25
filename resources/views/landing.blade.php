@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GlobalVisa Consultancy – Your Trusted Immigration Partner</title>
+    <title>Erazehan International – Your Trusted Immigration Partner</title>
     <meta name="description" content="Expert visa and immigration consultancy services. Student, work, tourist, and PR visas handled by certified professionals." />
 
     <!-- Tailwind CDN (swap for compiled asset in production) -->
@@ -83,7 +83,7 @@
                 <svg class="w-7 h-7 text-gold" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93V18c0-.55.45-1 1-1s1 .45 1 1v1.93A8.01 8.01 0 0 1 4.07 13H6c.55 0 1 .45 1 1s-.45 1-1 1H4.07A8.01 8.01 0 0 1 11 19.93zM4.07 11H6c.55 0 1-.45 1-1s-.45-1-1-1H4.07A8.01 8.01 0 0 1 11 4.07V6c0 .55.45 1 1 1s1-.45 1-1V4.07A8.01 8.01 0 0 1 19.93 11H18c-.55 0-1 .45-1 1s.45 1 1 1h1.93A8.01 8.01 0 0 1 13 19.93V18c0-.55-.45-1-1-1s-1 .45-1 1v1.93A8.01 8.01 0 0 1 4.07 13H6"/>
                 </svg>
-                {{ $settings['logo_text'] ?? 'GlobalVisa' }}
+                {{ $settings['logo_text'] ?? 'Erazehan International' }}
             @endif
         </a>
 
@@ -246,7 +246,7 @@
             <h2 class="text-3xl sm:text-4xl font-extrabold mt-3 mb-6">We Make Immigration Simple</h2>
             <p class="text-blue-100 mb-8 leading-relaxed">
                 With over 15 years of experience and a team of certified immigration lawyers and consultants,
-                GlobalVisa has helped thousands of individuals and families achieve their immigration goals.
+                Erazehan International has helped thousands of individuals and families achieve their immigration goals.
             </p>
             <ul class="space-y-4">
                 @foreach([
@@ -291,8 +291,8 @@
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach([
-                ['Sarah M.','Canada PR','GlobalVisa made the entire PR process stress-free. My case manager was always available and kept me updated every step of the way. Got my PR in 8 months!','🇨🇦'],
-                ['Ahmed K.','UK Student Visa','I was rejected once before finding GlobalVisa. They identified the issues, helped me reapply, and I got my student visa within 3 weeks. Highly recommend!','🇬🇧'],
+                ['Sarah M.','Canada PR','Erazehan International made the entire PR process stress-free. My case manager was always available and kept me updated every step of the way. Got my PR in 8 months!','🇨🇦'],
+                ['Ahmed K.','UK Student Visa','I was rejected once before finding Erazehan International. They identified the issues, helped me reapply, and I got my student visa within 3 weeks. Highly recommend!','🇬🇧'],
                 ['Priya R.','Australia Work Visa','Professional, efficient, and genuinely caring team. They handled all my documents and I received my skilled worker visa without any hassle.','🇦🇺'],
             ] as $t)
             <div class="bg-white rounded-2xl p-8 shadow-sm card-hover" data-aos="fade-up">
@@ -415,7 +415,7 @@
 <footer class="bg-gray-900 text-gray-400 py-12 px-4">
     <div class="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
         <div>
-            <div class="text-white font-bold text-lg mb-3">GlobalVisa</div>
+            <div class="text-white font-bold text-lg mb-3">Erazehan International</div>
             <p class="text-sm leading-relaxed">Your trusted immigration partner since 2009. Certified, experienced, and dedicated to your success.</p>
         </div>
         <div>
@@ -446,7 +446,7 @@
         </div>
     </div>
     <div class="border-t border-gray-800 pt-6 text-center text-xs">
-        © {{ date('Y') }} GlobalVisa Consultancy. All rights reserved. &nbsp;|&nbsp;
+        © {{ date('Y') }} Erazehan International. All rights reserved. &nbsp;|&nbsp;
         <a href="#" class="hover:text-white">Privacy Policy</a> &nbsp;|&nbsp;
         <a href="#" class="hover:text-white">Terms of Service</a>
     </div>

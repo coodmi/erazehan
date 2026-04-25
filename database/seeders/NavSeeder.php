@@ -19,7 +19,7 @@ class NavSeeder extends Seeder
 
         // Add extra site settings for header
         DB::table('site_settings')->insertOrIgnore([
-            ['key'=>'logo_text',   'value'=>'GlobalVisa',          'created_at'=>now(),'updated_at'=>now()],
+            ['key'=>'logo_text',   'value'=>'Erazehan International',          'created_at'=>now(),'updated_at'=>now()],
             ['key'=>'logo_url',    'value'=>'',                     'created_at'=>now(),'updated_at'=>now()],
             ['key'=>'nav_cta_text','value'=>'Free Consultation',    'created_at'=>now(),'updated_at'=>now()],
             ['key'=>'nav_cta_link','value'=>'#contact',             'created_at'=>now(),'updated_at'=>now()],

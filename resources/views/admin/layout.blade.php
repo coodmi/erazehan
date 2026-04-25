@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@yield('title', 'Admin') – GlobalVisa</title>
+    <title>@yield('title', 'Admin') – Erazehan International</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen font-sans">
@@ -16,7 +16,7 @@
     <div class="flex items-center gap-3 px-5 py-5 border-b border-slate-700">
         <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">GV</div>
         <div>
-            <div class="text-white font-bold text-sm leading-tight">GlobalVisa</div>
+            <div class="text-white font-bold text-sm leading-tight">Erazehan International</div>
             <div class="text-slate-400 text-xs">Admin Panel</div>
         </div>
     </div>
