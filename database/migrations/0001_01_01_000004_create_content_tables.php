@@ -10,13 +10,13 @@ return new class extends Migration {
         Schema::create('hero_slides', function (Blueprint $table) {
             $table->id();
             $table->string('image_url');
-            $table->string('title');
-            $table->string('highlight');
-            $table->text('subtitle');
-            $table->string('btn1_text')->default('Get Free Consultation');
-            $table->string('btn1_link')->default('#contact');
-            $table->string('btn2_text')->default('Explore Services');
-            $table->string('btn2_link')->default('#services');
+            $table->string('title')->nullable();
+            $table->string('highlight')->nullable();
+            $table->text('subtitle')->nullable();
+            $table->string('btn1_text')->nullable();
+            $table->string('btn1_link')->nullable();
+            $table->string('btn2_text')->nullable();
+            $table->string('btn2_link')->nullable();
             $table->integer('sort_order')->default(0);
             $table->boolean('active')->default(true);
             $table->timestamps();
