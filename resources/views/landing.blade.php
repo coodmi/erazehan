@@ -519,9 +519,11 @@
     </div>
 
     <div class="border-t border-gray-200 pt-6 text-xs">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 px-4 sm:px-6 lg:px-8">
-            <span class="text-gray-400">© {{ date('Y') }} {{ $settings['footer_copyright'] ?? 'Erazehan International. All rights reserved.' }}</span>
-            <span class="text-gray-400">Design &amp; Developed By <a href="https://alphainno.com" target="_blank" rel="noopener" class="text-orange-500 hover:text-orange-400 font-semibold transition">Alphainno</a></span>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                <span class="text-gray-400">© {{ date('Y') }} {{ $settings['footer_copyright'] ?? 'Erazehan International. All rights reserved.' }}</span>
+                <span class="text-gray-400">Design &amp; Developed By <a href="https://alphainno.com" target="_blank" rel="noopener" class="text-orange-500 hover:text-orange-400 font-semibold transition">Alphainno</a></span>
+            </div>
         </div>
     </div>
 </footer>
@@ -542,7 +544,7 @@
         if (!track) return;
 
         const items    = track.children;
-        const perPage  = 4;
+        const perPage  = 2;
         const total    = items.length;
         const pages    = Math.ceil(total / perPage);
         let current    = 0;
