@@ -3,23 +3,56 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\HeroController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\StatController;
+use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\WhyUsController;
+use App\Http\Controllers\Admin\SettingsController;
 
 // ── Public ──────────────────────────────────────────────
-Route::get('/',        [LandingController::class, 'index'])->name('home');
-Route::post('/contact',[LandingController::class, 'contact'])->name('contact');
+Route::get('/',         [LandingController::class, 'index'])->name('home');
+Route::post('/contact', [LandingController::class, 'contact'])->name('contact');
 
-// ── Admin Auth ──────────────────────────────────────────
+// ── Admin ───────────────────────────────────────────────
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get ('login',  [AdminController::class, 'loginForm'])->name('login');
     Route::post('login',  [AdminController::class, 'login']);
     Route::post('logout', [AdminController::class, 'logout'])->name('logout');
 
-    // Protected
     Route::middleware('auth')->group(function () {
-        Route::get ('dashboard',       [AdminController::class, 'dashboard'])->name('dashboard');
-        Route::post('contacts/{contact}/status', [AdminController::class, 'updateStatus'])->name('contacts.status');
-        Route::delete('contacts/{contact}',      [AdminController::class, 'deleteContact'])->name('contacts.delete');
+        Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::get ('change-password', [AdminController::class, 'changePasswordForm'])->name('change-password');
         Route::post('change-password', [AdminController::class, 'changePassword']);
+
+        // Contacts
+        Route::get    ('contacts',                  [AdminController::class, 'dashboard'])->name('contacts.index');
+        Route::post   ('contacts/{contact}/status', [AdminController::class, 'updateStatus'])->name('contacts.status');
+        Route::delete ('contacts/{contact}',        [AdminController::class, 'deleteContact'])->name('contacts.delete');
+
+        // Hero Slides
+        Route::resource('hero',         HeroController::class)->except(['show'])->names('hero');
+
+        // Services
+        Route::resource('services',     ServiceController::class)->except(['show'])->names('services');
+
+        // Stats
+        Route::get ('stats',            [StatController::class, 'index'])->name('stats.index');
+        Route::post('stats',            [StatController::class, 'store'])->name('stats.store');
+        Route::post('stats/update',     [StatController::class, 'update'])->name('stats.update');
+        Route::delete('stats/{stat}',   [StatController::class, 'destroy'])->name('stats.destroy');
+
+        // Testimonials
+        Route::resource('testimonials', TestimonialController::class)->except(['show'])->names('testimonials');
+
+        // Why Us
+        Route::get   ('whyus',          [WhyUsController::class, 'index'])->name('whyus.index');
+        Route::post  ('whyus',          [WhyUsController::class, 'store'])->name('whyus.store');
+        Route::put   ('whyus/{whyus}',  [WhyUsController::class, 'update'])->name('whyus.update');
+        Route::delete('whyus/{whyus}',  [WhyUsController::class, 'destroy'])->name('whyus.destroy');
+
+        // Settings
+        Route::get ('settings',         [SettingsController::class, 'index'])->name('settings.index');
+        Route::post('settings',         [SettingsController::class, 'update'])->name('settings.update');
     });
 });
