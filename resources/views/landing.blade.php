@@ -604,6 +604,19 @@
     
     let isMenuOpen = false;
 
+    // Initialize menu to closed state on page load
+    function initializeMenu() {
+        mobileMenu.classList.add('pointer-events-none');
+        menuBackdrop.classList.add('opacity-0');
+        menuBackdrop.classList.remove('opacity-100');
+        menuPanel.classList.add('translate-x-full');
+        menuPanel.classList.remove('translate-x-0');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        document.body.style.overflow = '';
+        isMenuOpen = false;
+    }
+
     function toggleMenu() {
         isMenuOpen = !isMenuOpen;
         
@@ -631,6 +644,9 @@
             }, 300);
         }
     }
+
+    // Initialize menu on page load
+    initializeMenu();
 
     menuBtn.addEventListener('click', toggleMenu);
     menuBackdrop.addEventListener('click', toggleMenu);
